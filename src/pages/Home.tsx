@@ -1,29 +1,26 @@
 import { useNavigate } from 'react-router-dom'
+
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
 
 import '../styles/auth.scss';
+
 import { Button } from '../components/Button';
-import firebase from 'firebase/app';
-import 'firebase/auth'
+import { useAuth } from '../hooks/useAuth'
+
 
 export function Home(){
   const history = useNavigate();
+  const {user, signInWithGoogle} = useAuth();
 
-  
+  async function handleCreateRoom(){
+    if(!user) {
+      await signInWithGoogle();
+    }
 
-  function handleCreateRoom(){
-    const provider = new firebase.
-
-    auth.signInWithPopup(provider).then(result => {
-      console.log(result)
-    })
-
-   // history('/rooms/new'); 
- }
-
-
+    history('/rooms/new'); 
+  }
 
   return(
     <div id="page-auth">
